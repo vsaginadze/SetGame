@@ -10,15 +10,24 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            ZStack {
+                let base = RoundedRectangle(cornerRadius: 12)
+                
+                Group {
+                    base.fill(.white)
+                    base.stroke(lineWidth: 2)
+                    
+                    Text("shape")
+                        .font(.system(size: 200))
+                        .minimumScaleFactor(0.01)
+                        .aspectRatio(contentMode: .fit)
+                                            
+                }
+            }
         }
         .padding()
     }
 }
-
 #Preview {
     ContentView()
 }
