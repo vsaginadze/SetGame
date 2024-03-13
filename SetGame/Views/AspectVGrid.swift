@@ -32,14 +32,17 @@ struct AspectViewGrid<Item: Identifiable, ItemView: View>: View {
                 size: geometry.size,
                 atAspectRatio: aspectRatio)
             
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatFits), spacing: 0)], spacing: 0) {
-                ForEach(items) { item in
-                    content(item)
-                        .aspectRatio(aspectRatio, contentMode: .fit)
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatFits), spacing: 0)], spacing: 0) {
+                    ForEach(items) { item in
+                        content(item)
+                            .aspectRatio(aspectRatio, contentMode: .fit)
+                    }
                 }
             }
         }
     }
+
     
     private func gridItemWidthThatFits(
         count: Int,
