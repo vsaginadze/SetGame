@@ -22,19 +22,16 @@ struct SetGameView: View {
     }
     
     private var cards: some View {
-        let color: Color = .orange
         let aspectRatio: CGFloat = calculateAspectRatio(forNumberOfCards: game.cards.count)
-        
         
         return AspectViewGrid(game.cards, aspectRatio: aspectRatio) { card in
             CardView(card: card)
                 .padding(6)
-                .foregroundStyle(color)
         }
     }
     
     private func calculateAspectRatio(forNumberOfCards count: Int) -> Double {
-        if count <= 25 { return 3/4 }
+        if count <= 25 { return 2/3 }
         if count > 75 { return 3/1 }
         return Double(count) * 0.03
     }
