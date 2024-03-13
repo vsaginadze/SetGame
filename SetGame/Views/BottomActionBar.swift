@@ -30,6 +30,7 @@ struct BottomActionBar: View {
             
             addThreeCardsButton
         }
+        .padding(.top)
     }
     
     private var addThreeCardsButton: some View {
