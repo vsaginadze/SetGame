@@ -10,10 +10,10 @@ import Foundation
 struct SetGameModel {
     private(set) var cards: Array<Card>
     
-    init(numberOfDisplayedCards: Int, featuresFactory: () -> Features) {
+    init(_ featuresFactory: () -> Features) {
         self.cards = []
         
-        for i in 0..<numberOfDisplayedCards {
+        for i in 0..<25 {
             let card = Card(id: i, features: featuresFactory())
             cards.append(card)
         }
@@ -23,16 +23,21 @@ struct SetGameModel {
         cards.shuffle()
     }
     
+    
     struct Card: Identifiable {
         let features: Features
         var isSelected: Bool = false
         var id: Int
-        
+        var state: CardState = .fresh
         
         init(id: Int, features: Features) {
             self.id = id
             self.features = features
         }
+    }
+    
+    enum CardState {
+        case fresh, playing, matched
     }
     
     struct Features {
