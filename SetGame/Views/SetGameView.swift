@@ -26,8 +26,8 @@ struct SetGameView: View {
         
         
         return AspectViewGrid(game.cards, aspectRatio: aspectRatio) { card in
-                CardView(card: card)
-                    .padding(6)
+            CardView(card: card)
+                .padding(6)
         }
     }
     
