@@ -28,11 +28,11 @@ struct CardView: View {
     
     private var cardContent: some View {
         VStack {
-            ForEach(0..<card.features.number, id: \.self) { _ in
+            ForEach(0..<card.number.rawValue, id: \.self) { _ in
                 shape
                     .aspectRatio(2/1, contentMode: .fit)
                     .minimumScaleFactor(0.01)
-                    .opacity(card.features.shading == "striped" ? 0.5 : 1)
+                    .opacity(card.shading == .stripped ? 0.5 : 1)
             }
         }
         .padding()
@@ -41,22 +41,22 @@ struct CardView: View {
     // Optimizible
     @ViewBuilder
     private var shape: some View {
-        if card.features.shape == "diamond" {
-            if card.features.shading == "open" {
+        if card.shape == .diamond {
+            if card.shading == .outlined {
                 Diamond()
                     .stroke(lineWidth: 2)
             } else {
                 Diamond()
             }
-        } else if card.features.shape == "oval" {
-            if card.features.shading == "open" {
+        } else if card.shape == .oval {
+            if card.shading == .outlined {
                 Capsule()
                     .stroke(lineWidth: 2)
             } else {
                 Capsule()
             }
-        } else if card.features.shape == "rectangle" {
-            if card.features.shading == "open" {
+        } else if card.shape == .squiggle {
+            if card.shading == .outlined {
                 Rectangle()
                     .stroke(lineWidth: 2)
             } else {
@@ -66,19 +66,24 @@ struct CardView: View {
     }
     
     
-    private var color: Color {
-        if card.features.color == "orange" {
-            return Color.orange
-        } else if card.features.color == "red" {
-            return Color.red
-        } else if card.features.color == "purple" {
-            return Color.purple
+    var color: Color {
+        switch card.color {
+            case .red:
+                return Color.red
+            case .purple:
+                return Color.purple
+            case .green:
+                return Color.green
         }
-        
-        return Color.orange
     }
 }
 
-#Preview {
-    CardView(card: SetGameModel.Card(id: 1, features: SetGameModel.Features("oval", "solid", 1, "orange")))
+struct CardView_Previews: PreviewProvider {
+    static let game = SetGameViewModel()
+    static var previews: some View {
+        let card = game.cards.first!
+
+        return CardView(card: card)
+            .previewLayout(.fixed(width: 200, height: 200))
+    }
 }
