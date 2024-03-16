@@ -32,13 +32,13 @@ struct CardView: View {
                 shape
                     .aspectRatio(2/1, contentMode: .fit)
                     .minimumScaleFactor(0.01)
-                    .opacity(getOpacity(card.features.shading))
+                    .opacity(card.features.shading == "striped" ? 0.5 : 1)
             }
         }
         .padding()
     }
     
-    
+    // Optimizible
     @ViewBuilder
     private var shape: some View {
         if card.features.shape == "diamond" {
@@ -76,16 +76,6 @@ struct CardView: View {
         }
         
         return Color.orange
-    }
-    
-    private func getOpacity(_ shading: String) -> Double {
-        if shading == "solid" || shading == "open" {
-            return 1
-        } else if shading == "striped" {
-            return 0.5
-        }
-        
-        return 1
     }
 }
 
