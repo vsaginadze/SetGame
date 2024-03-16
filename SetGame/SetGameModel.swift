@@ -18,13 +18,19 @@ struct SetGameModel {
         deal(12)
     }
     
+    mutating func choose(_ card: Card) {
+        if let selectedCardIdx = dealedCards.firstIndex(where: {$0.id == card.id}) {
+            dealedCards[selectedCardIdx].isSelected.toggle()
+        }
+    }
+    
     mutating func shuffle() {
         dealedCards.shuffle()
     }
 
     mutating func deal(_ n: Int = 3) {
         for _ in 0..<n {
-            guard let card = deck.drawCard() else {
+            guard let card = deck.getCard() else {
                 print("no more cards in deck")
                 return
             }
@@ -48,7 +54,7 @@ struct SetGameModel {
             cards.shuffle()
         }
         
-        mutating func drawCard() -> Card? {
+        mutating func getCard() -> Card? {
             guard cards.count > 0 else {
                 return nil
             }
@@ -63,17 +69,13 @@ struct SetGameModel {
         let number: Number
         let color : Color
         
-        var state: CardState = .fresh
-        
         var isSelected: Bool = false
+        var isMatched: Bool = false
+        
         var id = UUID()
     }
     
-    enum CardState {
-        case fresh, playing, matched
-    }
-    
-    enum Number: Int, CaseIterable, Hashable {
+    enum Number: Int, CaseIterable {
         case one = 1, two, three
     }
 
@@ -85,18 +87,7 @@ struct SetGameModel {
         case solid, stripped, outlined
     }
 
-    enum Shape: String, CaseIterable, Hashable, CustomStringConvertible {
+    enum Shape: String, CaseIterable, Hashable {
         case oval , squiggle, diamond
-
-        var description: String {
-            switch self {
-                case .oval:
-                    return "O"
-                case .squiggle:
-                    return "~"
-                case .diamond:
-                    return "◇"
-            }
-        }
     }
 }

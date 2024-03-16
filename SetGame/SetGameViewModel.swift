@@ -21,6 +21,10 @@ class SetGameViewModel: ObservableObject {
         model.deal()
     }
     
+    func choose(_ card: Card) {
+        model.choose(card)
+    }
+    
     func startNewGame() {
         // 
     }

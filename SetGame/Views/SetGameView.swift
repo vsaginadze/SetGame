@@ -28,6 +28,11 @@ struct SetGameView: View {
         return AspectViewGrid(game.cards, aspectRatio: aspectRatio) { card in
             CardView(card: card)
                 .padding(6)
+                .onTapGesture {
+                    withAnimation {
+                        game.choose(card)
+                    }
+                }
         }
     }
     

@@ -18,12 +18,23 @@ struct CardView: View {
             
             Group {
                 base.fill(.white)
+                
+                if card.isSelected {
+                    base.fill(.orange)
+                }
+                
+                
                 base.stroke(lineWidth: 2)
+                    .foregroundStyle(card.isMatched ? .green : .black)
+                
                 
                 cardContent
                     .foregroundStyle(color)
+                
             }
+            .padding(card.isSelected ? -3 : 0)
         }
+        .background(card.isSelected ? .green : .white)
     }
     
     private var cardContent: some View {
@@ -64,7 +75,6 @@ struct CardView: View {
             }
         }
     }
-    
     
     var color: Color {
         switch card.color {
