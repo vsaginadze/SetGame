@@ -35,7 +35,9 @@ struct BottomActionBar: View {
     
     private var addThreeCardsButton: some View {
         Button {
-            game.addThreeCards()
+            withAnimation {
+                game.addThreeCards()
+            }
         } label: {
             Image(systemName: "square.stack.3d.up.fill")
                 .font(.title3)
