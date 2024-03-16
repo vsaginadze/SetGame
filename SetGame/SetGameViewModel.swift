@@ -16,15 +16,18 @@ class SetGameViewModel: ObservableObject {
     }
     
     private static func createSetGame() -> SetGameModel {
-        SetGameModel(numberOfDisplayedCards: numberOfDisplayedCards) {
-            let shape = shapes.randomElement() ?? "oval"
-            let shading = shading.randomElement() ?? "solid"
-            let color = colors.randomElement() ?? "orange"
-            let number = Int.random(in: 1...3)
-            
-            return CardFeatures(shape, shading, number, color)
-        }
+        SetGameModel(featuresFactory)
     }
+    
+    private static func featuresFactory() -> CardFeatures {
+        let shape = shapes.randomElement() ?? "oval"
+        let shading = shading.randomElement() ?? "solid"
+        let color = colors.randomElement() ?? "orange"
+        let number = Int.random(in: 1...3)
+        
+        return CardFeatures(shape, shading, number, color)
+    }
+    
     
     @Published var model: SetGameModel
     
@@ -32,16 +35,16 @@ class SetGameViewModel: ObservableObject {
         model.cards
     }
     
+    
     // MARK: Optimizible
-    private static let numberOfDisplayedCards: Int = 4
+    private static var numberOfDisplayedCards = 12
     private static let shapes = ["oval", "diamond", "rectangle"]
     private static let shading = ["solid", "striped", "open"]
     private static let colors = ["orange", "red", "purple"]
     
     // MARK: Intents
-    
     func addThreeCards() {
-        // model.addThreeCards()
+        
     }
     
     func startNewGame() {
