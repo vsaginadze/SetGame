@@ -9,7 +9,7 @@ import Foundation
 
 struct SetGameModel {
     private(set) var dealedCards: Array<Card>
-    private(set) var deck: Deck
+    private var deck: Deck
     
     init() {
         dealedCards = []
@@ -20,8 +20,50 @@ struct SetGameModel {
     
     mutating func choose(_ card: Card) {
         if let selectedCardIdx = dealedCards.firstIndex(where: {$0.id == card.id}) {
+            // OPTIMIZE
+            var numberOfSelectedCards = 0
+            for card in dealedCards {
+                if card.isSelected {
+                    numberOfSelectedCards += 1
+                }
+            }
+            
+            if numberOfSelectedCards == 3 {
+                for idx in 0..<dealedCards.count {
+                    if dealedCards[idx].isSelected {
+                        dealedCards[idx].isSelected.toggle()
+                    }
+                }
+                numberOfSelectedCards = 0
+            }
+            
             dealedCards[selectedCardIdx].isSelected.toggle()
+            
+            
+            
+            if numberOfSelectedCards == 2 {
+                check()
+            }
         }
+    }
+    
+    func isThereMoreCards() -> Bool {
+        return dealedCards.count == 81
+    }
+    
+    mutating func check() {
+        var selectedCards: Array<Card> = []
+        for card in dealedCards {
+            if card.isSelected {
+                selectedCards.append(card)
+            }
+        }
+        
+        var isSet: Bool = isSet(selectedCards)
+    }
+    
+    func isSet(_ selectedCards: Array<Card>) -> Bool {
+        return true
     }
     
     mutating func shuffle() {
@@ -31,7 +73,6 @@ struct SetGameModel {
     mutating func deal(_ n: Int = 3) {
         for _ in 0..<n {
             guard let card = deck.getCard() else {
-                print("no more cards in deck")
                 return
             }
             dealedCards.append(card)
