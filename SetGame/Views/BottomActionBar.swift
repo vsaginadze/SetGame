@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ButtonStyling: ViewModifier {
+    var noMoreCards: Bool
+    
+    init(_ noMoreCards: Bool = false) {
+        self.noMoreCards = noMoreCards
+    }
+    
     func body(content: Content) -> some View {
         content
             .font(.title2)
@@ -15,7 +21,9 @@ struct ButtonStyling: ViewModifier {
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(noMoreCards ? .gray : .black)
             }
+            .disabled(noMoreCards)
     }
 }
 
@@ -43,7 +51,7 @@ struct BottomActionBar: View {
                 .font(.title3)
             Text("Add 3 Cards")
         }
-        .modifier(ButtonStyling())
+        .modifier(ButtonStyling(game.noMoreCards))
     }
     
     private var shuffleButton: some View {
