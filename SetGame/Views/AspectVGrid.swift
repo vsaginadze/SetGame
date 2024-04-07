@@ -27,7 +27,7 @@ struct AspectViewGrid<Item: Identifiable, ItemView: View>: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let widthThatFits = gridItemWidthThatFits(
+            let widthThatFits: CGFloat = gridItemWidthThatFits(
                 count: items.count,
                 size: geometry.size,
                 atAspectRatio: aspectRatio)
@@ -49,6 +49,8 @@ struct AspectViewGrid<Item: Identifiable, ItemView: View>: View {
         size: CGSize,
         atAspectRatio aspectRatio: CGFloat
     ) -> CGFloat {
+        if count > 25 { return 65 }
+        
         let count = CGFloat(count)
         var columnCount = 1.0
         repeat {
@@ -61,6 +63,7 @@ struct AspectViewGrid<Item: Identifiable, ItemView: View>: View {
             }
             columnCount += 1
         } while columnCount < count
+        
         return min(size.width / count, size.height * aspectRatio).rounded(.down)
     }
     
