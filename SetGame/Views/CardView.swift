@@ -9,20 +9,19 @@ import SwiftUI
 
 struct CardView: View {
     typealias Card = SetGameModel.Card
-    
     let card: Card
     
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
+            let selectedCardColor = Color(red: 1.0, green: 0.8, blue: 0.6)
             
             Group {
                 base.fill(.white)
                 
                 if card.isSelected {
-                    base.fill(.orange)
+                    base.fill(Color(selectedCardColor))
                 }
-                
                 
                 base.stroke(lineWidth: 2)
                     .foregroundStyle(card.isMatched ? .green : .black)
