@@ -9,9 +9,12 @@ import Foundation
 
 class SetGameViewModel: ObservableObject {
     typealias Card = SetGameModel.Card
-
     @Published var model: SetGameModel = SetGameModel()
-
+    
+    var noMoreCards: Bool {
+        return model.isThereMoreCards()
+    }
+    
     var cards: Array<Card> {
         model.dealedCards
     }
@@ -24,6 +27,7 @@ class SetGameViewModel: ObservableObject {
     func choose(_ card: Card) {
         model.choose(card)
     }
+    
     
     func startNewGame() {
         // 
