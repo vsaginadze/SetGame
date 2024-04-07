@@ -22,8 +22,7 @@ struct SetGameView: View {
     }
     
     private var cards: some View {
-        let aspectRatio: CGFloat = calculateAspectRatio(forNumberOfCards: game.cards.count)
-        
+        let aspectRatio: CGFloat = 2/3
         
         return AspectViewGrid(game.cards, aspectRatio: aspectRatio) { card in
             CardView(card: card)
@@ -36,10 +35,10 @@ struct SetGameView: View {
         }
     }
     
-    private func calculateAspectRatio(forNumberOfCards count: Int) -> Double {
-        if count <= 25 { return 2/3 }
-        if count > 75 { return 1/3 }
-        return Double(count) * 0.03
+    private func calculateAspectRatio(with count: Int) -> CGFloat {
+        if count < 25 { return 2/3 }
+        if count > 25 && count < 40 { return 3 }
+        return 3
     }
 }
 
