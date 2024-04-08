@@ -38,12 +38,17 @@ struct SetGameModel {
             }
             
             dealedCards[selectedCardIdx].isSelected.toggle()
-            
-            
-            
-            if numberOfSelectedCards == 2 {
-                check()
+        }
+        
+        var numberOfSelectedCards = 0
+        for card in dealedCards {
+            if card.isSelected {
+                numberOfSelectedCards += 1
             }
+        }
+        
+        if numberOfSelectedCards == 3 {
+            check()
         }
     }
     
@@ -52,17 +57,51 @@ struct SetGameModel {
     }
     
     mutating func check() {
-        var selectedCards: Array<Card> = []
-        for card in dealedCards {
-            if card.isSelected {
-                selectedCards.append(card)
+        let selectedCards = dealedCards.filter { $0.isSelected }
+        let isSet: Bool = isSet(selectedCards)
+        
+        if isSet {
+            for idx in 0..<dealedCards.count {
+                if dealedCards[idx].isSelected {
+                    dealedCards[idx].isMatched.toggle()
+                }
             }
         }
         
-        var isSet: Bool = isSet(selectedCards)
+        dealedCards = dealedCards.filter { !$0.isMatched }
     }
     
     func isSet(_ selectedCards: Array<Card>) -> Bool {
+        let shapes = selectedCards.map { $0.shape }
+        let colors = selectedCards.map { $0.color }
+        let numbers = selectedCards.map { $0.number }
+        let shadings = selectedCards.map { $0.shading }
+        
+        var shapeMakesSet: Bool
+        var colorMakesSet: Bool
+        var numberMakesSet: Bool
+        var shadingMakesSet: Bool
+        
+        shapeMakesSet = propertyMakesSet(shapes)
+        colorMakesSet = propertyMakesSet(colors)
+        shadingMakesSet = propertyMakesSet(shadings)
+        numberMakesSet = propertyMakesSet(numbers)
+        
+        return shapeMakesSet && colorMakesSet && shadingMakesSet && numberMakesSet
+    }
+    
+    func propertyMakesSet<T: Equatable>(_ properties: Array<T> ) -> Bool {
+        return properties.allSatisfy { $0 == properties.first } || allItemsAreDifferent(properties)
+    }
+    
+    func allItemsAreDifferent<T: Equatable>(_ array: [T]) -> Bool {
+        for (index, item) in array.enumerated() {
+            for otherIndex in (index + 1)..<array.count {
+                if item == array[otherIndex] {
+                    return false
+                }
+            }
+        }
         return true
     }
     
@@ -104,7 +143,6 @@ struct SetGameModel {
     }
     
     struct Card: Identifiable {
-        // features
         let shape: Shape
         let shading: Shading
         let number: Number
@@ -121,7 +159,7 @@ struct SetGameModel {
     }
 
     enum Color: String, CaseIterable, Hashable {
-        case red = "🟥", purple = "🟪", green = "🟩"
+        case red = "🟥", blue = "🟦", yellow = "🟨"
     }
 
     enum Shading: String, CaseIterable, Hashable {
