@@ -35,6 +35,7 @@
 		4FB250652B9607BE009081A7 /* SetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameView.swift; sourceTree = "<group>"; };
 		4FB250672B9607C0009081A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FB2506A2B9607C0009081A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4FF07E652BC4472A001B4A0E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 				4FB250632B9607BE009081A7 /* SetGameApp.swift */,
 				4FB250672B9607C0009081A7 /* Assets.xcassets */,
 				4FB250692B9607C0009081A7 /* Preview Content */,
+				4FF07E652BC4472A001B4A0E /* README.md */,
 			);
 			path = SetGame;
 			sourceTree = "<group>";
