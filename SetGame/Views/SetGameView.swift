@@ -14,7 +14,12 @@ struct SetGameView: View {
         VStack {
             TopActionBar(game: game)
             
-            cards
+            if game.cards.count != 0 {
+                cards
+            } else {
+                Text("You have successfully finished the game")
+                Text("Please Press New Game Button")
+            }
             
             BottomActionBar(game: game)
         }
