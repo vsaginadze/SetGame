@@ -25,7 +25,9 @@ struct TopActionBar: View {
     
     private var newGameButton: some View {
         Button {
-            game.startNewGame()
+            withAnimation {
+                game.startNewGame()
+            }
         } label: {
             HStack {
                 Image(systemName: "plus.square.on.square")
