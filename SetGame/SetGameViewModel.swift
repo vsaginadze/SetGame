@@ -11,8 +11,13 @@ class SetGameViewModel: ObservableObject {
     typealias Card = SetGameModel.Card
     @Published var model: SetGameModel = SetGameModel()
     
+    var allCardsArePresent = false
     var noMoreCards: Bool {
-        return model.isThereMoreCards()
+        if model.isThereMoreCards() || allCardsArePresent {
+            allCardsArePresent = true
+            return true
+        }
+        return false
     }
     
     var cards: Array<Card> {
@@ -31,6 +36,7 @@ class SetGameViewModel: ObservableObject {
     
     func startNewGame() {
         model = SetGameModel()
+
     }
     
     func shuffle() {
