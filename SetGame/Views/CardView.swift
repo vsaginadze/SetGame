@@ -14,13 +14,17 @@ struct CardView: View {
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
-            let selectedCardColor = Color(red: 1.0, green: 0.8, blue: 0.6)
+            let selectedCardColor = Color(red: 0.2, green: 0.2, blue: 0.2)
             
             Group {
                 base.fill(.white)
                 
                 if card.isSelected {
                     base.fill(Color(selectedCardColor))
+                }
+                
+                if card.isMatched {
+                    base.fill(.green)
                 }
                 
                 base.stroke(lineWidth: 2)
@@ -33,7 +37,6 @@ struct CardView: View {
             }
             .padding(card.isSelected ? -3 : 0)
         }
-        .background(card.isSelected ? .green : .white)
     }
     
     private var cardContent: some View {
@@ -79,10 +82,10 @@ struct CardView: View {
         switch card.color {
             case .red:
                 return Color.red
-            case .purple:
-                return Color.purple
-            case .green:
-                return Color.green
+            case .blue:
+                return Color.blue
+            case .yellow:
+                return Color.yellow
         }
     }
 }
