@@ -44,8 +44,7 @@ class SetGameViewModel: ObservableObject {
     
     
     func startNewGame() {
-        model = SetGameModel()
-
+        model.startNewGame()
     }
     
     func shuffle() {
