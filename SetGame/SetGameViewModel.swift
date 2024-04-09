@@ -24,16 +24,9 @@ class SetGameViewModel: ObservableObject {
             }
         }
     }
-
-
     
-    var allCardsArePresent = false
     var noMoreCards: Bool {
-        if model.isThereMoreCards() || allCardsArePresent {
-            allCardsArePresent = true
-            return true
-        }
-        return false
+        return model.isThereMoreCards()
     }
     
     var cards: Array<Card> {
