@@ -21,6 +21,13 @@ struct SetGameModel {
         deal(12)
     }
     
+    mutating func startNewGame() {
+        willDealCards = []
+        dealedCards = []
+        deck = Deck()
+        deal(12)
+    }
+    
     mutating func choose(_ card: Card) {
         if let selectedCardIdx = dealedCards.firstIndex(where: {$0.id == card.id}) {
             // OPTIMIZE
