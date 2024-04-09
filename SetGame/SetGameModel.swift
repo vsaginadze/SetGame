@@ -8,10 +8,13 @@
 import Foundation
 
 struct SetGameModel {
-    private(set) var dealedCards: Array<Card>
     private var deck: Deck
+
+    var willDealCards: Array<(Card,Card,Card)>
+    var dealedCards: Array<Card>
     
     init() {
+        willDealCards = []
         dealedCards = []
         deck = Deck()
         
@@ -68,7 +71,11 @@ struct SetGameModel {
             }
         }
         
-        dealedCards = dealedCards.filter { !$0.isMatched }
+        let willDealArray = self.dealedCards.filter { $0.isMatched }
+        print(willDealArray)
+        if !willDealArray.isEmpty {
+            willDealCards.append((willDealArray[0], willDealArray[1], willDealArray[2]))
+        }
     }
     
     func isSet(_ selectedCards: Array<Card>) -> Bool {
