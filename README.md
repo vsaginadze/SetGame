@@ -1,7 +1,12 @@
 # CS193p - Set Game
 
 This is my version of Set Game, part of Staford's course 'CS193p - Developing Applications for iOS of Spring 2023.
-![[Screen Recording 2024-04-09 at 17.15.38.mov]]
+
+
+https://github.com/vsaginadze/SetGame/assets/62477087/40262e08-4867-47fe-941d-a83722c61f3f
+
+
+
 ## Formal Rules
 
 Each card contains four attributes, each of which take on three values:
