@@ -9,7 +9,7 @@ import Foundation
 
 struct SetGameModel {
     private var deck: Deck
-
+    private var remaininigCards: Int = 81
     var willDealCards: Array<(Card,Card,Card)>
     var dealedCards: Array<Card>
     
@@ -56,7 +56,7 @@ struct SetGameModel {
     }
     
     func isThereMoreCards() -> Bool {
-        return dealedCards.count == 81
+        return remaininigCards == 0
     }
     
     mutating func check() {
@@ -117,6 +117,7 @@ struct SetGameModel {
     }
 
     mutating func deal(_ n: Int = 3) {
+        remaininigCards -= n
         for _ in 0..<n {
             guard let card = deck.getCard() else {
                 return
